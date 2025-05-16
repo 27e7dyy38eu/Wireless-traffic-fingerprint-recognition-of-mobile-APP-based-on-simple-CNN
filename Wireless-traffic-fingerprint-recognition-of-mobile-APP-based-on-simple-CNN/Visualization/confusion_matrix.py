@@ -103,7 +103,7 @@ def read_label_dict(file_path):
 
 if __name__ == "__main__":
     data_dir = "../TAM"
-    model_path = "../Model/your_model.pth"
+    model_path = "../Model/example_model.pth"
     label_dict = read_label_dict('../label.txt')
     reverse_label_dict = {v: k for k, v in label_dict.items()}
     max_length = 50
@@ -124,27 +124,21 @@ if __name__ == "__main__":
             for file_name in os.listdir(class_dir):
                 if file_name.endswith('.csv'):
                     file_path = os.path.join(class_dir, file_name)
-                    if os.path.isfile(file_path):  # 确保是文件
+                    if os.path.isfile(file_path):  
                         true_label, pred_label = predict_and_collect_results(model, file_path, reverse_label_dict,
                                                                              max_length, input_channels, device)
                         y_true.append(true_label)
                         y_pred.append(pred_label)
 
-    # 设置中文字体
     try:
-        # Linux 示例字体路径（根据你的系统修改）
         font_path = '/usr/share/fonts/truetype/arphic/ukai.ttc'
-        # Windows 示例字体路径
-        # font_path = 'C:\\Windows\\Fonts\\simhei.ttf'
         font_prop = fm.FontProperties(fname=font_path)
         plt.rcParams['font.sans-serif'] = [font_prop.get_name()]
     except Exception as e:
         print("加载自定义字体失败，尝试使用默认字体...")
-        plt.rcParams['font.sans-serif'] = ['SimHei']  # 使用 SimHei 显示中文
+        plt.rcParams['font.sans-serif'] = ['SimHei']  
+    plt.rcParams['axes.unicode_minus'] = False  
 
-    plt.rcParams['axes.unicode_minus'] = False  # 解决负号 '-' 显示为方块的问题
-
-    # 生成混淆矩阵
     cm = confusion_matrix(y_true, y_pred, labels=list(label_dict.keys()))
     disp = ConfusionMatrixDisplay(confusion_matrix=cm, display_labels=list(label_dict.keys()))
     disp.plot(cmap=plt.cm.GnBu)
@@ -156,6 +150,6 @@ if __name__ == "__main__":
     plt.yticks(fontsize=10, rotation=45)
     plt.tight_layout()
 
-    # 保存图像
+
     plt.savefig("logs/confusion_matrix.png", dpi=600, bbox_inches='tight')
     plt.show()
