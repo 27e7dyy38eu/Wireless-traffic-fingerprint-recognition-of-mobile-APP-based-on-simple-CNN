@@ -11,9 +11,9 @@ from matplotlib.font_manager import FontProperties
 from matplotlib.cm import get_cmap
 
 
-# 设置中文字体支持
-plt.rcParams['font.sans-serif'] = ['SimHei']  # 使用黑体显示中文
-plt.rcParams['axes.unicode_minus'] = False    # 正常显示负号
+
+plt.rcParams['font.sans-serif'] = ['SimHei']  
+plt.rcParams['axes.unicode_minus'] = False   
 
 
 class SimpleCNN(nn.Module):
@@ -111,7 +111,7 @@ def read_label_dict(file_path):
         for line in f:
             line = line.strip()
             if not line or line.startswith('#'):
-                continue  # 跳过空行或注释
+                continue  
             key, value = line.split(':', 1)
             label_dict[key.strip()] = int(value.strip())
     return label_dict
@@ -119,7 +119,7 @@ def read_label_dict(file_path):
 
 if __name__ == "__main__":
     data_dir = "../TAM"
-    model_path = "../Model/your_model_1.pth"
+    model_path = "../Model/example_model.pth"
     label_dict = read_label_dict('../label.txt')
     reverse_label_dict = {v: k for k, v in label_dict.items()}
     max_length = 50
