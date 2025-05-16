@@ -11,9 +11,8 @@ from matplotlib.font_manager import FontProperties
 import matplotlib.cm as cm
 
 
-# 设置中文字体
-plt.rcParams['font.sans-serif'] = ['SimHei']  # 使用黑体显示中文
-plt.rcParams['axes.unicode_minus'] = False    # 正常显示负号
+plt.rcParams['font.sans-serif'] = ['SimHei']  
+plt.rcParams['axes.unicode_minus'] = False 
 
 
 class SimpleCNN(nn.Module):
@@ -92,7 +91,7 @@ def read_label_dict(file_path):
         for line in f:
             line = line.strip()
             if not line or line.startswith('#'):
-                continue  # 跳过空行或注释
+                continue  
             key, value = line.split(':', 1)
             label_dict[key.strip()] = int(value.strip())
     return label_dict
@@ -100,7 +99,7 @@ def read_label_dict(file_path):
 
 if __name__ == "__main__":
     data_dir = "../TAM"
-    model_path = "../Model/your_model_1.pth"
+    model_path = "../Model/example_model.pth"
     label_dict = read_label_dict('../label.txt')
     reverse_label_dict = {v: k for k, v in label_dict.items()}
     max_length = 50
@@ -128,21 +127,18 @@ if __name__ == "__main__":
 
     all_features = np.vstack(all_features)
 
-    # 标准化 + PCA
     scaler = StandardScaler()
     all_features_scaled = scaler.fit_transform(all_features)
     pca = PCA(n_components=3)
     features_3d = pca.fit_transform(all_features_scaled)
 
-    # 创建保存目录
     save_dir = "logs"
     os.makedirs(save_dir, exist_ok=True)
 
-    # 绘图
     fig = plt.figure(figsize=(10, 8))
     ax = fig.add_subplot(111, projection='3d')
 
-    cmap = cm.get_cmap('tab20')  # 支持更多类别的颜色
+    cmap = cm.get_cmap('tab20') 
     colors = [cmap(i) for i in range(len(label_dict))]
 
     for idx, (label_name, color) in enumerate(zip(label_dict.keys(), colors)):
@@ -163,7 +159,7 @@ if __name__ == "__main__":
     ax.set_zlabel("主成分3")
     ax.legend(title="类别标签", bbox_to_anchor=(1.05, 1), loc='upper left')
 
-    # 保存图像
+
     plt.tight_layout()
     plt.savefig(os.path.join(save_dir, "logs/feature_distribution_3d.png"), dpi=600, bbox_inches='tight')
     plt.show()
