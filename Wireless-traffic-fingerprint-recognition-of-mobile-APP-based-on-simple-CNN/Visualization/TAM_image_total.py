@@ -18,7 +18,7 @@ def read_csv(csv_file):
     try:
         with open(csv_file, mode='r') as file:
             reader = csv.reader(file)
-            next(reader)  # 跳过表头
+            next(reader)  
 
             for row in reader:
                 if len(row) < 2:
@@ -74,7 +74,7 @@ def visualize_data(data_folder, S, label_colors=None, alpha=0.7):
             continue
 
         color = label_colors.get(label, 'black')
-        first_file = True  # 标记是否是当前 label 的第一个文件
+        first_file = True
 
         for csv_file in csv_files:
             up_counts, down_counts = read_csv(csv_file)
@@ -84,7 +84,6 @@ def visualize_data(data_folder, S, label_colors=None, alpha=0.7):
 
             down_counts_neg = [-count for count in down_counts]
 
-            # 控制图例仅在第一个文件绘制时添加
             label_up = f"{label}-uplink" if first_file else "_nolegend_"
             label_down = f"{label}-downlink" if first_file else "_nolegend_"
 
@@ -93,7 +92,7 @@ def visualize_data(data_folder, S, label_colors=None, alpha=0.7):
             plt.plot(time_intervals, down_counts_neg, linestyle="--", marker="x", color=color,
                      label=label_down, linewidth=1.5, markersize=4, alpha=alpha)
 
-            first_file = False  # 后续文件不加图例
+            first_file = False 
 
     max_time = max(max(t) for t in all_time_intervals) if all_time_intervals else 0
 
@@ -118,24 +117,21 @@ def read_label_dict(file_path):
         for line in f:
             line = line.strip()
             if not line or line.startswith('#'):
-                continue  # 跳过空行或注释
+                continue  
             key, value = line.split(':', 1)
             label_dict[key.strip()] = int(value.strip())
     return label_dict
 
 
 if __name__ == "__main__":
-    data_folder = "../TAM"  # 替换为你的数据文件夹路径
+    data_folder = "../TAM"  
     label_dict = read_label_dict('../label.txt')
-    S = 0.1  # 时间间隔（秒）
+    S = 0.1  
 
-    # 获取所有 label 文件夹名称
+
     labels = [name for name in os.listdir(data_folder) if os.path.isdir(os.path.join(data_folder, name))]
 
-    # 使用 colormap 为每个 label 分配颜色
-    cmap = get_cmap('tab10')  # 可选 'Set3', 'Dark2', 'Pastel1' 等
-    label_colors = {label: cmap(i % 10) for i, label in enumerate(labels)}  # %10 防止超出范围
-
-    alpha = 0.5  # 设置透明度
-
+    cmap = get_cmap('tab10') 
+    label_colors = {label: cmap(i % 10) for i, label in enumerate(labels)}  
+    alpha = 0.5  
     visualize_data(data_folder, S, label_colors, alpha)
