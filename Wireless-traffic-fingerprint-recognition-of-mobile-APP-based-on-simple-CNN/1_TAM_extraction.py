@@ -113,7 +113,7 @@ def process_folder(folder_path, target_mac, T, S, output_folder):
 if __name__ == "__main__":
     
     folder_path = "wireless_pcap/9抖音"
-    target_mac = "c8:bc:9c:a3:bd:39"  
+    target_mac = "aa:bb:cc:dd:ee:ff"  
     T = 2  
     S = 0.1  
     output_folder = "TAM/9抖音"
