@@ -10,9 +10,8 @@ from sklearn.preprocessing import StandardScaler
 from matplotlib.font_manager import FontProperties
 from matplotlib.cm import get_cmap
 
-# 设置中文字体支持
-plt.rcParams['font.sans-serif'] = ['SimHei']  # 使用黑体显示中文
-plt.rcParams['axes.unicode_minus'] = False  # 正常显示负号
+plt.rcParams['font.sans-serif'] = ['SimHei'] 
+plt.rcParams['axes.unicode_minus'] = False  
 
 
 class SimpleCNN(nn.Module):
@@ -109,14 +108,14 @@ def read_label_dict(file_path):
         for line in f:
             line = line.strip()
             if not line or line.startswith('#'):
-                continue  # 跳过空行或注释
+                continue  
             key, value = line.split(':', 1)
             label_dict[key.strip()] = int(value.strip())
     return label_dict
 
 if __name__ == "__main__":
     data_dir = "../TAM"
-    model_path = "../Model/your_model.pth"
+    model_path = "../Model/example_model.pth"
     label_dict = read_label_dict('../label.txt')
     reverse_label_dict = {v: k for k, v in label_dict.items()}
     max_length = 50
@@ -146,19 +145,15 @@ if __name__ == "__main__":
                     y_pred.append(pred_label)
                     all_features.append(features)
 
-    # 特征标准化 + t-SNE
     all_features = np.vstack(all_features)
     scaler = StandardScaler()
     all_features_scaled = scaler.fit_transform(all_features)
 
-    # 使用 t-SNE 进行降维
     tsne = TSNE(n_components=2, perplexity=30, n_iter=300)
     features_2d = tsne.fit_transform(all_features_scaled)
 
-    # 创建输出目录
     os.makedirs("logs", exist_ok=True)
 
-    # 绘图
     cmap = get_cmap('tab10')
     colors = [cmap(i) for i in range(len(label_dict))]
 
