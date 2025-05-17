@@ -29,7 +29,13 @@ TAM：处理好的训练数据TAM，里面包含多个label的文件夹
 1）下载并打开名为“Wireless-traffic-fingerprint-recognition-of-mobile-APP-based-on-simple-CNN”的文件夹  
 2）安装好python环境  
 3）作者在每个py文件的名字上添加了序号，请按序号运行！  
-4）可视化在Visualization中，请自行查看！
+4）可视化在Visualization中，请自行查看！  
+
+## 联系方式
+有任何问题或交流学习可联系   
+我的邮箱：hanz78843@gmail.com
+
+
 
 
 
