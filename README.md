@@ -1,13 +1,14 @@
-# 基于简单CNN的手机APP无线流量指纹识别
-
-> 通过天线抓取空口流量，得知被攻击者正在或已经使用了什么手机APP
-
+## 基于简单CNN的手机APP无线流量指纹识别  
+版本号：V1.0  
+作者：Han  
+邮箱：hanz78843@gmail.com  
+最后更新日期:2025/05/17  
 ## 项目简介  
-项目演示：https://www.bilibili.com/video/BV1dAE8zBEuo/?spm_id_from=333.337.search-card.all.click&vd_source=b25323c9eee5af5064b19d1aa77a24a6
+目前项目处于初级阶段，作者正在努力维护和优化(QAQ)！  
+项目演示视频：https://www.bilibili.com/video/BV1dAE8zBEuo/?spm_id_from=333.337.search-card.all.click&vd_source=b25323c9eee5af5064b19d1aa77a24a6
 ![攻击场景](https://github.com/27e7dyy38eu/img/blob/main/attck.png)   
-本项目扮演上图攻击场景中的攻击者  
-通过天线抓取空口的802.11帧流量，进行特征提取，使用卷积神经网络模型进行APP分类，进而识别被攻击者在手机上使用了什么APP  
-目前项目仅实现了10种APP的无线流量分类  
+随着移动互联网的高速发展，手机成为了生活中最重要工具，因此针对手机终端的隐私窃取行为也层出不穷。然而少有团队对手机无线加密流量进行分析。造成这一现象的原因有：1）不同设备、不同应用的无线流量混杂，难以区分；2）无线流量多为加密流量，难以进行分析；3）无线流量数量庞大，处理复杂度高；4）现有分析技术过于复杂，难以复现。因此，本项目在前人的基础上，提出了一种简单的、可复现的攻击方法：基于简单CNN的APP无线流量指纹识别。  
+目前项目已实现10种手机APP的无线流量指纹识别。通过抓取APP启时的特征流量，在小批量数据集上的识别正确率超97%
 ![混淆矩阵](https://github.com/27e7dyy38eu/img/blob/main/confusion_matrix.png) 
 
 ## 先验知识
